@@ -1,0 +1,8 @@
+package chapter2.notion.question2;
+
+public class Question2 {
+    public static void main(String[] args) {
+        System.out.println("2 + 3");
+        System.out.println(2 + 3);
+    }
+}
