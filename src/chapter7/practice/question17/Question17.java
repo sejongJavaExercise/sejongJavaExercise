@@ -1,34 +1,38 @@
-package chapter7.practice.question17;
-
-public class Question17 {
+public class RpgGame {
     public static void main(String[] args) {
-        EventStorage eventStorage;
-        eventStorage = new EventStorage( "철수", true, new Event() {
-            public void alertEvent() {
-                System.out.println("화재가 발생했습니다.");
-            }
-        });
-        eventStorage.printEvent();
+        Npc npc1 = new Npc("철수", "[슬라임을 잡아줘!]", 0, 0);
+        Monster slime1 = new Monster("슬라임", 20, 100, 100);
+        Npc npc2 = (Npc) copy(npc1);
+        Monster slime2 = (Monster) copy(slime1);
+        npc1.print();
+        npc2.print();
+        slime1.print();
+        slime2.print();
+    }
+
+    static Copyable copy(Copyable c) {
+        if (c instanceof Npc) {
+            Npc n = (Npc) c;
+            return new Npc(n.name, n.quest, n.x + 1, n.y);
+        } else if (c instanceof Monster) {
+            Monster m = (Monster) c;
+            return new Monster(m.name, m.attackPower, m.x + 1, m.y);
+        }
+        throw new IllegalArgumentException("지원하지 않는 타입");
     }
 }
 
-interface Event{
-    //이벤트 내용을 println() 메서드로 출력
-    void alertEvent();
+interface Copyable {}
+interface Printable { void print(); }
+
+class Npc implements Copyable, Printable {
+    String name; String quest; int x; int y;
+    Npc(String name, String quest, int x, int y) { this.name=name; this.quest=quest; this.x=x; this.y=y; }
+    public void print(){ System.out.printf("이름 : %s, 퀘스트 : %s, 좌표 : (%d, %d)\n", name, quest, x, y); }
 }
 
-class EventStorage{
-    String eventMaker;
-    boolean emergency;
-    Event event;
-    EventStorage(String eventMaker, boolean emergency, Event event){
-        this.eventMaker = eventMaker;
-        this.emergency = emergency;
-        this.event = event;
-    }
-    void printEvent(){
-        event.alertEvent();
-        System.out.println("이벤트메이커는 " + eventMaker + "입니다.");
-        System.out.printf(emergency ? "긴급상황입니다!!!\n" : "");
-    }
+class Monster implements Copyable, Printable {
+    String name; int attackPower; int x; int y;
+    Monster(String name, int attackPower, int x, int y) { this.name=name; this.attackPower=attackPower; this.x=x; this.y=y; }
+    public void print(){ System.out.printf("이름 : %s, 공격력 : %d, 좌표 : (%d, %d)\n", name, attackPower, x, y); }
 }
