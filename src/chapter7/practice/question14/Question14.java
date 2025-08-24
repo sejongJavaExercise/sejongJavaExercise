@@ -1,19 +1,25 @@
-package chapter7.practice.question14;
-
-public class Question14 {
+public class DogCat {
     public static void main(String[] args) {
-        OuterClass outerInstance = new OuterClass();
-        System.out.println(outerInstance.a);
-        System.out.println(OuterClass.InstanceClass.CONSTANT);
-        System.out.println(OuterClass.StaticClass.b);
+        Animal dog = new Dog();
+        Animal cat = new Cat();
+
+        dog.makeSound();
+        cat.makeSound();
     }
 }
-class OuterClass{
-    int a = 1;
-    class InstanceClass{
-        final static int CONSTANT = 2;
+
+interface Animal {
+    void makeSound();
+}
+
+class Dog implements Animal {
+    public void makeSound() {
+        System.out.println("멍멍");
     }
-    static class StaticClass{
-        static int b = 3;
+}
+
+class Cat implements Animal {
+    public void makeSound() {
+        System.out.println("야옹");
     }
 }
