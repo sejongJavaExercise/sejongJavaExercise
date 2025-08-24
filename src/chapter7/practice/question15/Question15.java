@@ -1,27 +1,40 @@
-package chapter7.practice.question15;
+interface Calculator {
+    int add(int x, int y);
+    int subtract(int x, int y);
+    int multiply(int x, int y);
+    int divide(int x, int y);
+}
 
-public class Question15 {
-    public static void main(String[] args) {
-        OuterClass outerInstance = new OuterClass();
-        outerInstance.print();
+class FourBasicCalculator implements Calculator {
+    public int add(int x, int y) {
+        return x + y;
+    }
+
+    public int subtract(int x, int y) {
+        return x - y;
+    }
+
+    public int multiply(int x, int y) {
+        return x * y;
+    }
+
+    public int divide(int x, int y) {
+        if (y == 0) {
+            System.out.println("0으로 나눌 수 없습니다.");
+            return 0;
+        }
+        return x / y;
     }
 }
 
-class OuterClass{
-    int x = 1;
-    class InstanceClass{
-        int x = 2;
-        void method(){
-            int x = 3;
-            System.out.println(x);
-            System.out.println(this.x);
-            System.out.println(OuterClass.this.x);
+public class CalculatorTest {
+    public static void main(String[] args) {
+        FourBasicCalculator calculator = new FourBasicCalculator();
+        int x = 5, y = 2;
 
-
-        }
-    }
-    void print(){
-        InstanceClass innerInstance = new InstanceClass();
-        innerInstance.method();
+        System.out.println(calculator.add(x, y));
+        System.out.println(calculator.subtract(x, y));
+        System.out.println(calculator.multiply(x, y));
+        System.out.println(calculator.divide(x, y));
     }
 }
