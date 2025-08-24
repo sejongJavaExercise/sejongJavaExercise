@@ -1,20 +1,31 @@
-package chapter7.practice.question9;
+class Person {
+    private String name;
+    private int age;
 
-public class Question9 {
-    public static void main(String[] args) {
-        Paper paper = new Paper(10,10);
-        System.out.println(paper.toString());
-    }
-}
+    public Person() {}
 
-class Paper{
-    int width;
-    int height;
-    Paper(int width, int height){
-        this.width = width;
-        this.height = height;
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
     }
-    public String toString(){
-        return "width = " + width + ", height = " + height + "인 종이";
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        if (age > 0) {
+            this.age = age;
+        } else {
+            System.out.println("잘못된 값이 입력되었습니다.");
+        }
     }
 }
