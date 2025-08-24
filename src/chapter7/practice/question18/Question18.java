@@ -1,17 +1,15 @@
-package chapter7.practice.question18;
-
-import java.awt.*;
-import java.awt.event.*;
-
-public class Question18 {
+public class HelloWorld {
     public static void main(String[] args) {
-        Button button = new Button("Start");
-        button.addActionListener(new EventHandler());
+        Greet greet = new Greet() {
+            public void sayHello() {
+                System.out.println("Hello World!");
+            }
+        };
+
+        greet.sayHello();
     }
 }
 
-class EventHandler implements ActionListener{
-    public void actionPerformed(ActionEvent e) {
-        System.out.println("ActionEvent occurred.");
-    }
+interface Greet {
+    void sayHello();
 }
