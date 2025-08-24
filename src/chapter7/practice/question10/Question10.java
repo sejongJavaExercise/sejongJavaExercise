@@ -1,99 +1,87 @@
-package chapter7.practice.question10;
+class Card {
+    private String status;
+    final int width = 64;
+    final int height = 89;
 
-public class Question10 {
+    Card() {
+        status = "front";
+    }
+
+    protected void flip() {
+        if (status.equals("front")) {
+            status = "back";
+        } else {
+            status = "front";
+        }
+    }
+
+    public String getStatus() {
+        return status;
+    }
+}
+
+class TrumpCard extends Card {
+    private int number;
+    private String shape;
+
+    TrumpCard(int number, String shape) {
+        setNumber(number);
+        setShape(shape);
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        if (number >= 1 && number <= 13) {
+            this.number = number;
+        } else {
+            System.out.println("숫자를 변경하는 데 실패하였습니다.");
+        }
+    }
+
+    public String getShape() {
+        return shape;
+    }
+
+    public void setShape(String shape) {
+        if (shape.equals("Spade") || shape.equals("Diamond") ||
+            shape.equals("Heart") || shape.equals("Club")) {
+            this.shape = shape;
+        } else {
+            System.out.println("모양을 변경하는 데 실패하였습니다.");
+        }
+    }
+
+    private String numberToValue(int number) {
+        switch (number) {
+            case 1: return "A";
+            case 11: return "J";
+            case 12: return "Q";
+            case 13: return "K";
+            default: return String.valueOf(number);
+        }
+    }
+
+    public void print() {
+        System.out.println(getStatus() + ", " + numberToValue(number) + " of " + shape + "s");
+    }
+}
+
+public class TrumpCardGame {
     public static void main(String[] args) {
-        Customer customer = new Customer();
+        TrumpCard trumpCard = new TrumpCard(2, "Spade");
+        System.out.println("Card size : USA standard size – " + trumpCard.width + " * " + trumpCard.height);
 
-        customer.buy(new TV());
-        customer.buy(new Computer());
-        customer.buy(new Audio());
-        customer.summary();
+        trumpCard.print();
+        trumpCard.flip();
+        trumpCard.setNumber(8);
+        trumpCard.setShape("Heart");
+        trumpCard.print();
+        trumpCard.flip();
+        trumpCard.setNumber(-1);
+        trumpCard.setShape("Joker");
+        trumpCard.print();
     }
 }
-
-class Product{
-    int price;
-    int mileage;
-    Product(){}
-    Product(int price){
-        this.price = price;
-        mileage = (int) (price / 10.0);
-    }
-}
-
-class TV extends Product{
-    TV(){ super(100); }
-    public String toString(){ return "TV"; }
-}
-
-class Computer extends Product{
-    Computer(){ super(200); }
-    public String toString(){ return "Computer"; }
-}
-
-class Audio extends Product{
-    Audio(){ super(50); }
-    public String toString(){ return "Audio"; }
-}
-
-class Customer {
-    int money = 1000;
-    int mileage = 0;
-    Product[] cart = new Product[10];
-    int cnt = 0;
-
-    void buy(Product p){
-        if(money < p.price){
-            System.out.println("잔액이 부족하여 물건을 살 수 없습니다.");
-            return;
-        }
-
-        money -= p.price;
-        mileage += p.mileage;
-        cart[cnt++] = p;
-        System.out.println(p + "을(를) 구입하셨습니다.");
-    }
-
-    void summary(){
-        int sum = 0;
-        String itemList = "";
-
-        for (int i = 0; i < cart.length; i++) {
-            if(cart[i] == null)
-                break;
-            sum += cart[i].price;
-            itemList += (i == 0) ? "" + cart[i] : ", " + cart[i];
-        }
-        System.out.println("구입하신 물품의 총 금액은 " + sum + "만원입니다.");
-        System.out.println("구입하신 제품은 " + itemList + "입니다.");
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
