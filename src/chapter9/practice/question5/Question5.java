@@ -1,11 +1,13 @@
-package chapter9.practice.question5;
+import java.util.Scanner;
 
-public class Question5 {
+public class ReplaceWord {
     public static void main(String[] args) {
-        double d = 1234.5678;
-        d *= 1000;
-        d = Math.round(d);
-        d /= 1000.0;
-        System.out.println(d);
+        Scanner sc = new Scanner(System.in);
+
+        String str = sc.nextLine();
+
+        String result = str.replace("World", "Java");
+
+        System.out.println(result);
     }
 }
