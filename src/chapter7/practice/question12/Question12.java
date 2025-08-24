@@ -1,54 +1,79 @@
-package chapter7.practice.question12;
-
-public class Question12 {
+public class ProductCustomer {
     public static void main(String[] args) {
-        Taxi taxi = new Taxi();
-        Truck truck = new Truck();
-        Bus bus = new Bus();
+        Customer customer = new Customer();
 
-        taxi.call();
-        taxi.move(100, 200);
-        taxi.stop();
-
-        truck.call();
-        truck.move(200, 100);
-        truck.stop();
-
-        bus.call();
-        bus.move(300, 300);
-        bus.stop();
+        customer.buy(new TV());
+        customer.buy(new Computer());
+        customer.buy(new Audio());
+        customer.summary();
     }
 }
 
-abstract class Car{
-    //차를 호출하는 메서드
-    abstract void call();
+class Product {
+    int price;
+    int mileage;
+
+    Product() {}
+
+    Product(int price) {
+        this.price = price;
+        mileage = (int)(price / 10.0);
+    }
 }
 
-interface Movable{
-    //(x, y)의 좌표로 이동하는 메서드
-    void move(int x, int y);
+class TV extends Product {
+    TV() { super(100); }
+    public String toString() { return "TV"; }
 }
 
-interface Stoppable{
-    //움직임을 멈추고 현재 자리에 정지하는 메서드
-    void stop();
+class Computer extends Product {
+    Computer() { super(200); }
+    public String toString() { return "Computer"; }
 }
 
-class Taxi extends Car implements Movable, Stoppable {
-    void call() { System.out.println("택시가 호출되었습니다."); }
-    public void move(int x, int y) { System.out.printf("택시가 (%d, %d)로 이동합니다.\n", x, y);}
-    public void stop() { System.out.println("택시가 정지합니다."); }
+class Audio extends Product {
+    Audio() { super(50); }
+    public String toString() { return "Audio"; }
 }
 
-class Truck extends Car implements Movable, Stoppable {
-    void call() { System.out.println("트럭이 호출되었습니다."); }
-    public void move(int x, int y) { System.out.printf("트럭이 (%d, %d)로 이동합니다.\n", x, y); }
-    public void stop() { System.out.println("트럭이 정지합니다."); }
-}
+class Customer {
+    private int money;
+    private int mileage;
+    private Product[] cart;
+    private int cnt;
 
-class Bus extends Car implements Movable, Stoppable {
-    void call() { System.out.println("버스가 호출되었습니다."); }
-    public void move(int x, int y) { System.out.printf("버스가 (%d, %d)로 이동합니다.\n", x, y); }
-    public void stop() { System.out.println("버스가 정지합니다."); }
+    Customer() {
+        this.money = 1000;
+        this.mileage = 0;
+        this.cart = new Product[10];
+        this.cnt = 0;
+    }
+
+    public void buy(Product p) {
+        if (money < p.price) {
+            System.out.println("잔액이 부족하여 물건을 살 수 없습니다.");
+            return;
+        }
+        money -= p.price;
+        mileage += p.mileage;
+        cart[cnt++] = p;
+        System.out.println(p + "을(를) 구입하셨습니다.");
+    }
+
+    public void summary() {
+        int sum = 0;
+        String itemList = "";
+
+        for (int i = 0; i < cnt; i++) {
+            sum += cart[i].price;
+            itemList += cart[i] + ", ";
+        }
+
+        if (cnt > 0) {
+            itemList = itemList.substring(0, itemList.length() - 2);
+        }
+
+        System.out.println("구입하신 물품의 총 금액은 " + sum + "만원입니다.");
+        System.out.println("구입하신 제품은 " + itemList + "입니다.");
+    }
 }
