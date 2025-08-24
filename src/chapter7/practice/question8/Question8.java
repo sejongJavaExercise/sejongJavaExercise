@@ -1,40 +1,28 @@
-package chapter7.practice.question8;
-
-public class Question8 {
+public class GoldPrice {
     public static void main(String[] args) {
-        Car car = new Car();
-        Taxi taxi = new Taxi();
-        Truck truck = new Truck();
+        Gold goldBar = new Gold(500000);
 
-        print(car);
-        print(taxi);
-        print(truck);
-    }
+        System.out.println(goldBar.getPrice());
 
-    public static void print(Car car){
-        if(car instanceof Taxi){
-            Taxi tmp = (Taxi) car;
-            tmp.printTaxi();
-        }
-        else if(car instanceof Truck){
-            Truck tmp = (Truck) car;
-            tmp.printTruck();
-        }
-        else{
-            System.out.println("I'm something else.");
-        }
+        goldBar.setPrice(200000);
+        System.out.println(goldBar.getPrice());
     }
 }
 
-class Car{}
-class Taxi extends Car {
-    public void printTaxi(){
-        System.out.println("I'm taxi.");
-    }
-}
-class Truck extends Car {
-    public void printTruck(){
-        System.out.println("I'm truck.");
-    }
-}
+class Gold {
+    private int price;
 
+    Gold(int price) {
+        this.price = price;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        if (price < 0) {
+            return; // 음수라면 변경하지 않음
+        }
+        this.price = price;
+    }
