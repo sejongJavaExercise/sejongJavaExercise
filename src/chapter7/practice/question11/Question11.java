@@ -1,26 +1,35 @@
-package chapter7.practice.question11;
+class Car {}
 
-public class Question11 {
-    public static void main(String[] args) {
-        Car[] cars = { new Taxi(), new Truck(), new Bus() };
-        for (int i = 0; i < cars.length; i++) {
-            cars[i].print();
-        }
+class Taxi extends Car {
+    void printTaxi() {
+        System.out.println("I'm taxi.");
     }
 }
 
-abstract class Car{
-    abstract void print();
+class Truck extends Car {
+    void printTruck() {
+        System.out.println("I'm truck.");
+    }
 }
 
-class Taxi extends Car{
-    void print() { System.out.println("I'm taxi."); }
-}
+public class WhichCar {
+    public static void main(String[] args) {
+        Car car = new Car();
+        Taxi taxi = new Taxi();
+        Truck truck = new Truck();
 
-class Truck extends Car{
-    void print() { System.out.println("I'm truck."); }
-}
+        print(car);
+        print(taxi);
+        print(truck);
+    }
 
-class Bus extends Car{
-    void print() { System.out.println("I'm bus."); }
+    public static void print(Car car) {
+        if (car instanceof Taxi) {
+            ((Taxi) car).printTaxi();
+        } else if (car instanceof Truck) {
+            ((Truck) car).printTruck();
+        } else {
+            System.out.println("I'm something else.");
+        }
+    }
 }
