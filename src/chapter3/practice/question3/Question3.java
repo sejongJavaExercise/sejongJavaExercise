@@ -10,7 +10,7 @@ public class Question3 {
         System.out.println(x + y); // 덧셈
         System.out.println(x - y); // 뺄셈
         System.out.println(x * y); // 곱셈
-        System.out.println(x / y); // 나눗셈(정수 나눗셈, 자연수 가정)
+        System.out.println((double)x / y); // 나눗셈
         System.out.println(x % y); // 나머지
         sc.close();
     }
