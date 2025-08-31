@@ -4,15 +4,16 @@ import java.util.*;
 
 public class Question5 {
     public static void main(String[] args) {
-        List<Integer> a = new ArrayList<Integer>(Arrays.asList(1, 2, 3, 4, 5));
-        List<Integer> b = new ArrayList<Integer>(Arrays.asList(6, 7, 8, 9, 10));
-        List<Integer> c = merge(a, b);
-        System.out.println(c);
+        List<Integer> list1 = new ArrayList<Integer>(Arrays.asList(1, 2, 3, 4));
+        append(list1, 5);
+        System.out.println(list1);
+
+        List<String> list2 = new ArrayList<String>(Arrays.asList("abc", "def", "ghi", "jkl"));
+        append(list2, "mno");
+        System.out.println(list2);
     }
 
-    static <T> List<T> merge(List<T> a, List<T> b) {
-        List<T> result = new ArrayList<>(a);
-        result.addAll(b);
-        return result;
+    static <T> void append(List<T> list, T a){
+        list.add(a);
     }
 }
